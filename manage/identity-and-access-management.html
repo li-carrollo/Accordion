@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smooth Accordion Dropdown Menu Demo</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2d2c41;
+            font-family: "Open Sans", Arial, Helvetica, Sans-serif, Verdana, Tahoma;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            color: #b63b4d;
+            text-decoration: none;
+        }
+
+        /** =======================
+ * Contenedor Principal
+ ===========================*/
+
+        h1 {
+            color: red;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        h1 a {
+            color: #c12c42;
+            font-size: 16px;
+        }
+
+        .accordion {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 20px;
+            background: #fff;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+        .accordion .link {
+            cursor: pointer;
+            display: flex;
+            padding: 15px 15px 15px 42px;
+            color: #4d4d4d;
+            font-size: 14px;
+            font-weight: 700;
+
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .accordion li:last-child .link {
+            border-bottom: 0;
+        }
+
+        .accordion li i {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            font-size: 18px;
+            color: #595959;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .accordion li.open .link {
+            color: #b63b4d;
+        }
+
+        .accordion li.open i {
+            color: #b63b4d;
+        }
+
+        .accordion li.open i.fa-chevron-down {
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        /**
+ * Submenu
+ -----------------------------*/
+
+        .submenu {
+            display: none;
+            background: white;
+            font-size: 14px;
+            margin: 10px 10px;
+            height: 50px;
+        }
+
+        .submenu li {}
+
+        .submenu a {
+            display: block;
+            text-decoration: none;
+            color: #d9d9d9;
+            padding: 12px;
+            padding-left: 42px;
+            -webkit-transition: all 0.25s ease;
+            -o-transition: all 0.25s ease;
+            transition: all 0.25s ease;
+        }
+
+        .submenu a:hover {
+            background: #b63b4d;
+            color: #fff;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .title {
+            font-size: 30px;
+            position: relative;
+            left: 20px;
+            top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Smooth Accordion Dropdown Menu Demo</h1>
+    <!-- Contenedor -->
+    <ul id="accordion" class="accordion">
+        <li>
+            <div class="link">
+                <img src="Improvement in Performance Latency.png" alt="Precision in Access Control
+                " />
+                <h2 class="title">Precision in Access Control
+                </h2>
+            </div>
+            <ul class="submenu">
+                <p>
+                    Identity and Access Management guarantees the right access for the right people, reducing the risk
+                    of unauthorized entry and ensuring that sensitive data remains in the hands of those who need it.
+                </p>
+            </ul>
+        </li>
+        <li>
+            <div class="link">
+                <img src="Improvement in Performance Latency.png" alt="Efficiency in Remote Work Environments" />
+                <h2 class="title">Efficiency in Remote Work Environments
+                </h2>
+            </div>
+            <ul class="submenu">
+                As remote work becomes the new norm, IAM streamlines access management, providing secure and seamless
+                connectivity for employees, regardless of their location.
+            </ul>
+        </li>
+        <li>
+            <div class="link">
+                <img src="Improvement in Performance Latency.png" alt="​Cybersecurity Fortification
+                    " />
+                <h2 class="title">​Cybersecurity Fortification
+                </h2>
+            </div>
+            <ul class="submenu">
+                Bolster your cybersecurity defenses with IAM, implementing advanced authentication
+                methods and access controls to thwart potential cyber threats and attacks.
+            </ul>
+        </li>
+        <li>
+            <div class="link">
+                <img src="Improvement in Performance Latency.png" alt="​Mitigating Data Breach Risks
+                " />
+                <h2 class="title">​Mitigating Data Breach Risks
+                </h2>
+            </div>
+            <ul class="submenu">IAM plays a pivotal role in preventing data breaches by ensuring that access permissions
+                are carefully managed, reducing the likelihood of unauthorized data exposure.
+            </ul>
+        </li>
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var Accordion = function (el, multiple) {
+                this.el = el || {}
+                this.multiple = multiple || false
+
+                // Variables privadas
+                var links = this.el.find(".link")
+                // Evento
+                links.on(
+                    "click",
+                    { el: this.el, multiple: this.multiple },
+                    this.dropdown
+                )
+            }
+
+            Accordion.prototype.dropdown = function (e) {
+                var $el = e.data.el
+                    ; ($this = $(this)), ($next = $this.next())
+
+                $next.slideToggle()
+                $this.parent().toggleClass("open")
+
+                if (!e.data.multiple) {
+                    $el
+                        .find(".submenu")
+                        .not($next)
+                        .slideUp()
+                        .parent()
+                        .removeClass("open")
+                }
+            }
+
+            var accordion = new Accordion($("#accordion"), false)
+        })
+    </script>
+</body>
+
+</html>
